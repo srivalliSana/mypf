@@ -163,14 +163,21 @@ section{position:relative}
 .exp-g h2{font-family:var(--serif);font-weight:400;font-size:clamp(46px,6.5vw,110px);line-height:.9;letter-spacing:-.035em;position:sticky;top:90px;align-self:start}
 .job{padding:30px 0 40px;border-top:1px solid var(--line)}
 .job:first-child{border-top:0;padding-top:0}
-.job .when{color:var(--nir);margin-bottom:10px}
+.job .when{color:var(--nir);margin:10px 0 6px}
 .job h3{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,54px);line-height:1;letter-spacing:-.02em}
-.job .co{margin:8px 0 18px;color:var(--ink-2)}
-.job ul{list-style:none;max-width:60ch}
+.job .sub{margin-top:8px;color:var(--ink)}
+.job .loc{color:var(--ink-2);font-size:15px;margin-top:2px}
+.job ul{list-style:none;max-width:60ch;margin-top:14px}
 .job li{padding:10px 0 10px 26px;position:relative;border-top:1px dashed var(--line)}
 .job li::before{content:"→";position:absolute;left:0;color:var(--nir)}
 .job .tags{margin-top:16px}
 .job .tags span{font-size:13px;padding:4px 12px}
+.tl{margin-top:26px;padding-left:34px;position:relative}
+.tl::before{content:"";position:absolute;left:5px;top:12px;bottom:12px;width:2px;background:var(--line)}
+.role{position:relative;padding-bottom:34px}
+.role:last-child{padding-bottom:0}
+.role::before{content:"";position:absolute;left:-34px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--nir)}
+.role h4{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.4vw,36px);line-height:1.05;letter-spacing:-.01em}
 .job a.rp{display:inline-block;margin-top:16px;border-bottom:1px solid;padding-bottom:2px}
 @media(max-width:900px){.exp-g{grid-template-columns:1fr}.exp-g h2{position:static}}
 
@@ -416,9 +423,13 @@ const BANDS=[
  {n:'B4',nm:'Geospatial AI',c:'var(--nir)',t:'Image segmentation',d:'Using ML segmentation models on images in QGIS. At GramTarang I worked on image analysis with ML-based segmentation.',u:['seg'],s:'QGIS · ONNX · DeepLabV3'}
 ];
 const JOBS=[
- {w:'Jun 2026 — Present',r:'Project Executive',c:'Centurion University of Technology and Management · Full-time · On-site',b:[],t:[]},
- {w:'Dec 2025 — May 2026',r:'Product Development Intern',c:'GramTarang Technologies · Internship · Vishakhapatnam, Andhra Pradesh · On-site',b:['Contributed to image analysis workflows that use ML-based segmentation.','Worked on data preparation, model experiments and checking results, in a research-focused setting.','Used Agisoft Metashape and ENVI to analyse and process multispectral and hyperspectral images.'],t:['Machine Learning','Deep Learning','Agisoft Metashape','ENVI']},
- {w:'Nov 2024 — Dec 2024',r:'Data Science Intern',c:'Codec Technologies India · Internship · Remote',b:['Worked as a data science intern.'],t:['Machine Learning']}
+ {co:'GramTarang Technologies',total:'1 yr',place:'On-site',roles:[
+  {r:'Project Executive',type:'Full-time',w:'Jun 2026 — Present',dur:'6 mos',b:[],t:[]},
+  {r:'Product Development Intern',type:'Internship',w:'Dec 2025 — May 2026',dur:'6 mos',loc:'Vishakhapatnam, Andhra Pradesh, India',
+   b:['Contributed to image analysis workflows that use ML-based segmentation.','Worked on data preparation, model experiments and checking results, in a research-focused setting.','Worked with Agisoft Metashape and ENVI to analyse and process multispectral and hyperspectral images.'],
+   t:['Machine Learning','Deep Learning']}]},
+ {co:'Codec Technologies India',place:'Remote',roles:[
+  {r:'Intern',type:'Internship',w:'Nov 2024 — Dec 2024',dur:'2 mos',loc:'Remote',b:['Worked as a data science intern.'],t:['Machine Learning']}]}
 ];
 const EDU=[
  ['Education',[
@@ -474,12 +485,28 @@ $('#bands').innerHTML=BANDS.map(b=>`
   </div>`).join('');
 $('#bands').addEventListener('click',e=>{const l=e.target.closest('[data-open]');if(!l)return;e.preventDefault();openCase(+l.dataset.open,e.clientX,e.clientY)});
 
-$('#jobs').innerHTML=JOBS.map(j=>`
+const roleHtml=q=>`
+    <div class="role">
+      <h4>${q.r}</h4>
+      <div class="sub">${q.type}</div>
+      <div class="when mono">${q.w} · ${q.dur}</div>
+      ${q.loc?`<div class="loc">${q.loc}</div>`:''}
+      ${q.b.length?`<ul>${q.b.map(t=>`<li>${t}</li>`).join('')}</ul>`:''}
+      ${q.t.length?`<div class="tags">${q.t.map(t=>`<span>${t}</span>`).join('')}</div>`:''}
+    </div>`;
+$('#jobs').innerHTML=JOBS.map(j=>j.roles.length>1?`
   <div class="job rv">
-    <div class="when mono">${j.w}</div><h3>${j.r}</h3><div class="co">${j.c}</div>
-    ${j.b.length?`<ul>${j.b.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
-    ${j.t.length?`<div class="tags">${j.t.map(x=>`<span>${x}</span>`).join('')}</div>`:''}
-    ${j.l?`<a class="rp mono" href="${j.l}" target="_blank" rel="noopener" data-link>Notebooks on GitHub ↗</a>`:''}
+    <h3>${j.co}</h3>
+    <div class="sub">${j.total}</div><div class="loc">${j.place}</div>
+    <div class="tl">${j.roles.map(roleHtml).join('')}</div>
+  </div>`:`
+  <div class="job rv">
+    <h3>${j.roles[0].r}</h3>
+    <div class="sub">${j.co} · ${j.roles[0].type}</div>
+    <div class="when mono">${j.roles[0].w} · ${j.roles[0].dur}</div>
+    <div class="loc">${j.roles[0].loc||j.place}</div>
+    ${j.roles[0].b.length?`<ul>${j.roles[0].b.map(t=>`<li>${t}</li>`).join('')}</ul>`:''}
+    ${j.roles[0].t.length?`<div class="tags">${j.roles[0].t.map(t=>`<span>${t}</span>`).join('')}</div>`:''}
   </div>`).join('');
 
 $('#edug').innerHTML=EDU.map(([h,items])=>`
