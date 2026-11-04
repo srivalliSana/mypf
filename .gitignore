@@ -6,3 +6,13 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# earlier React version, kept locally only
+src/
+public/
+package.json
+bun.lock
+tsconfig.json
+vite.config.ts
+metadata.json
+.env.example
