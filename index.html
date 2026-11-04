@@ -166,6 +166,7 @@ section{position:relative}
 .job .when{color:var(--nir);margin:10px 0 6px}
 .job h3{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.4vw,54px);line-height:1;letter-spacing:-.02em}
 .job .sub{margin-top:8px;color:var(--ink)}
+.job .desc{margin-top:14px;max-width:60ch}
 .job .loc{color:var(--ink-2);font-size:15px;margin-top:2px}
 .job ul{list-style:none;max-width:60ch;margin-top:14px}
 .job li{padding:10px 0 10px 26px;position:relative;border-top:1px dashed var(--line)}
@@ -424,7 +425,7 @@ const BANDS=[
 ];
 const JOBS=[
  {co:'GramTarang Technologies',total:'1 yr',place:'On-site',roles:[
-  {r:'Project Executive',type:'Full-time',w:'Jun 2026 — Present',dur:'6 mos',b:['Integrated AI-powered content generation and assistant functionality within the CRM ecosystem','Designed data ingestion pipelines for bulk lead imports (Excel/CSV) with validation, duplicate detection, and column mapping','Built analytics dashboards with KPI calculations, lead-source tracking, and performance reporting','Developed REST APIs for data exchange across CRM, CMS, and payment systems','Worked with PostgreSQL for structured data management and querying','Built and maintained a NPF CRM platform','Developed custom WordPress plugins (PHP) for AI content generation, authentication, and CMS workflows','Developed CU Orbit — a real-time messaging platform with chat and status features (Node.js, Express, MySQL, Kotlin/Android, Web)'],t:[]},
+  {r:'Project Executive',type:'Full-time',w:'Jun 2026 — Present',dur:'6 mos',d:'Working on data-driven and software products at GramTarang Technologies.',b:['Part of the development team of a CRM (Customer Relationship Management) platform, a system that organizes leads and customer interactions in one place.','Developed CU Orbit, an inter-organization communication app (Android, Node.js/Express, MySQL) with real-time messaging in channels and direct messages, public and private team workspaces, media and voice-note sharing, and read receipts.'],t:[]},
   {r:'Product Development Intern',type:'Internship',w:'Dec 2025 — May 2026',dur:'6 mos',loc:'Vishakhapatnam, Andhra Pradesh, India',
    b:['Contributed to image analysis workflows that use ML-based segmentation.','Worked on data preparation, model experiments and checking results, in a research-focused setting.','Worked with Agisoft Metashape and ENVI to analyse and process multispectral and hyperspectral images.'],
    t:['Machine Learning','Deep Learning']}]},
@@ -491,6 +492,7 @@ const roleHtml=q=>`
       <div class="sub">${q.type}</div>
       <div class="when mono">${q.w} · ${q.dur}</div>
       ${q.loc?`<div class="loc">${q.loc}</div>`:''}
+      ${q.d?`<p class="desc">${q.d}</p>`:''}
       ${q.b.length?`<ul>${q.b.map(t=>`<li>${t}</li>`).join('')}</ul>`:''}
       ${q.t.length?`<div class="tags">${q.t.map(t=>`<span>${t}</span>`).join('')}</div>`:''}
     </div>`;
