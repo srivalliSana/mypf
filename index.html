@@ -413,10 +413,11 @@ const BANDS=[
  {n:'B1',nm:'Machine learning',c:'#2D5BFF',t:'Machine learning projects',d:'Training models on tabular data and deploying them as web apps with Streamlit.',u:['aqi','att'],s:'scikit-learn · XGBoost · Pandas · Streamlit'},
  {n:'B2',nm:'Data analysis',c:'#1E9E5A',t:'Data analysis',d:'Analysing public datasets and presenting the results in dashboards.',u:['sbi'],s:'Tableau · Excel · Seaborn · Matplotlib'},
  {n:'B3',nm:'Multispectral & hyperspectral',c:'#E0281A',t:'Satellite image analysis',d:'Finding crop stress with NDVI and SAVI on multispectral data, and classifying materials in hyperspectral data.',u:['mca','hsi'],s:'ENVI · NDVI · SAVI · MNF · PPI · SAM'},
- {n:'B4',nm:'Geospatial AI',c:'var(--nir)',t:'Image segmentation',d:'Using ML segmentation models on images in QGIS. At GramTarang I work on image analysis with ML-based segmentation.',u:['seg'],s:'QGIS · ONNX · DeepLabV3'}
+ {n:'B4',nm:'Geospatial AI',c:'var(--nir)',t:'Image segmentation',d:'Using ML segmentation models on images in QGIS. At GramTarang I worked on image analysis with ML-based segmentation.',u:['seg'],s:'QGIS · ONNX · DeepLabV3'}
 ];
 const JOBS=[
- {w:'Dec 2025 — Present',r:'Product Development Intern',c:'GramTarang Technologies · Internship · Vishakhapatnam, Andhra Pradesh · On-site',b:['Contributing to image analysis workflows that use ML-based segmentation.','Working on data preparation, model experiments and checking results, in a research-focused setting.'],t:['Machine Learning','Deep Learning']},
+ {w:'Jun 2026 — Present',r:'Project Executive',c:'Centurion University of Technology and Management · Full-time · On-site',b:[],t:[]},
+ {w:'Dec 2025 — May 2026',r:'Product Development Intern',c:'GramTarang Technologies · Internship · Vishakhapatnam, Andhra Pradesh · On-site',b:['Contributed to image analysis workflows that use ML-based segmentation.','Worked on data preparation, model experiments and checking results, in a research-focused setting.','Used Agisoft Metashape and ENVI to analyse and process multispectral and hyperspectral images.'],t:['Machine Learning','Deep Learning','Agisoft Metashape','ENVI']},
  {w:'Nov 2024 — Dec 2024',r:'Data Science Intern',c:'Codec Technologies India · Internship · Remote',b:['Worked as a data science intern.'],t:['Machine Learning']}
 ];
 const EDU=[
@@ -476,8 +477,8 @@ $('#bands').addEventListener('click',e=>{const l=e.target.closest('[data-open]')
 $('#jobs').innerHTML=JOBS.map(j=>`
   <div class="job rv">
     <div class="when mono">${j.w}</div><h3>${j.r}</h3><div class="co">${j.c}</div>
-    <ul>${j.b.map(x=>`<li>${x}</li>`).join('')}</ul>
-    <div class="tags">${j.t.map(x=>`<span>${x}</span>`).join('')}</div>
+    ${j.b.length?`<ul>${j.b.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+    ${j.t.length?`<div class="tags">${j.t.map(x=>`<span>${x}</span>`).join('')}</div>`:''}
     ${j.l?`<a class="rp mono" href="${j.l}" target="_blank" rel="noopener" data-link>Notebooks on GitHub ↗</a>`:''}
   </div>`).join('');
 
